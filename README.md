@@ -8,4 +8,4 @@ logstash数据处理脚本见input.conf
 ![](./main2.png)
 ![](./main.png)
 
-
+有问题欢迎一起讨论～
