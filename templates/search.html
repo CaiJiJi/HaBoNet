@@ -1,0 +1,58 @@
+
+{% extends "base.html" %}
+{% block content %}
+<body>
+<div class="result-list" id="results">
+    <div class="result-summary">
+               <p>找到<strong>{{ page_info['total_rows']}}</strong>条结果
+     </div>
+    {% for item in page_info['rows'] %}
+    <ul class="result device" id="results">
+    <li>
+    <h3>
+      <a class="title" href="#">{{ item['ip']}}</a>
+    </h3>
+    <hr>
+    <article class="port">
+      <ul class="tags">
+        <li class="country">
+          <a href="">{{ item['geoip']['country_name'] }}</a>
+        </li>
+        <li class="ip">
+          <a href="">port :{{ item['port'] }}</a>
+        </li>
+      </ul>
+      <div class="timestamp">
+          <i class="iconfont icon-time"></i>
+          <span>Added on {{ item['timestamp'] }}</span>
+      </div>
+    </article>
+
+    <section class="banner">
+        <pre class="expand">
+         <h3>Banner:</h3>
+	{{ item['banner'] }}
+        </pre>
+    </section>
+  </li>
+</ul>
+    {% endfor %}
+<div>
+<script src="static/js/jquery.twbsPagination.js"></script>
+<ul id="pagination" class="pagination-sm"></ul>
+<script >
+	 $(pagination).twbsPagination({
+		first: "首页",
+		prev: "前一页",
+		next: "后一页",
+		last: "尾页",
+	totalPages: {{page_info['total']}},
+	visiblePages: 5,
+	startPage: {{page_info['current']}},
+	onPageClick: function (event, page) {
+	    location.href="/search?query={{keywords}}&&page="+page;
+	}
+    });
+</script>
+<body>
+{% endblock %}
